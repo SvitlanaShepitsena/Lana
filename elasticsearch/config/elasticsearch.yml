@@ -1,0 +1,28 @@
+---
+## Default Elasticsearch configuration from elasticsearch-docker.
+## from https://github.com/elastic/elasticsearch-docker/blob/master/build/elasticsearch/elasticsearch.yml
+#
+cluster.name: bot-cluster
+network.host: 0.0.0.0
+http.port: 9200
+
+node.name: "Awesome Alex"
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers: "X-Requested-With,X-Auth-Token,Content-Type, Content-Length, Authorization"
+
+#Disable xpack security features
+xpack.security.enabled: false
+# searchguard
+#searchguard.allow_unsafe_democertificates: true
+#searchguard.enterprise_modules_enabled: false
+
+searchguard.ssl.transport.keystore_filepath: keystore.jks
+searchguard.ssl.transport.keystore_password: changeit
+searchguard.ssl.transport.truststore_filepath: truststore.jks
+searchguard.ssl.transport.truststore_password: changeit
+
+searchguard.authcz.admin_dn:
+  - CN=kirk,OU=client,O=client,L=test,C=DE
+  - CN=spock,OU=client,O=client,L=test,C=DE

@@ -1,0 +1,67 @@
+version: '2'
+
+services:
+
+  elasticsearch:
+    build:
+      context: elasticsearch/
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - "9500:9200"
+      - "9700:9300"
+      - "22:22"
+#    command:
+#      /usr/share/elasticsearch/plugins/search-guard-5/tools/init-sgadmin.sh
+#    environment:
+#      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+#      ELASTIC_PASSWORD: changeme
+#      ES_CONF_FILE: "/etc/elasticsearch/elasticsearch.yml"
+#      ES_BIN_DIR: "/usr/share/elasticsearch/bin"
+#      ES_PLUGINS_DIR: "/usr/share/elasticsearch/plugins"
+#      ES_LIB_PATH: "/usr/share/elasticsearch/lib"
+    networks:
+      - elk
+
+  ansible:
+    build:
+      context: ansible/
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    environment:
+      ES_HOSTNAME: http://elasticsearch
+      ES_PORT: 9200
+
+#  kibana:
+#    build:
+#      context: kibana/
+#    volumes:
+#      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+#    ports:
+#      - "5602:5601"
+#    networks:
+#      - elk
+#    depends_on:
+#      - elasticsearch
+
+#  logstash:
+#    build:
+#      context: logstash/
+#    volumes:
+#      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+#      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+#    ports:
+#      - "5000:5000"
+#    environment:
+#      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+#    networks:
+#      - elk
+#    depends_on:
+#      - elasticsearch
+
+
+networks:
+  elk:
+    driver: bridge

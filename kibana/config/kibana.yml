@@ -1,0 +1,17 @@
+---
+## Default Kibana configuration from kibana-docker.
+## from https://github.com/elastic/kibana-docker/blob/master/build/kibana/config/kibana-x-pack.yml
+#
+server.name: kibana
+server.host: "0"
+elasticsearch.url: https://elasticsearch:9200
+elasticsearch.username: "kibanaserver"
+elasticsearch.password: "kibanaserver"
+#xpack.monitoring.ui.container.elasticsearch.enabled: true
+xpack.security.enabled: false
+elasticsearch.ssl.verificationMode: none
+#elasticsearch.url: http://localhost:9200
+#elasticsearch.requestHeadersWhitelist: [ x-proxy-user, cookie ]
+#own_home.session.secretkey: the-password-must-be-at-least-32-characters-long
+#own_home.session.isSecure: false
+#own_home.local.groups: [ common01, common02 ]

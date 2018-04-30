@@ -1,0 +1,8 @@
+---
+- name: Activator
+  hosts: all
+  gather_facts: no
+  tasks:
+  - name: Activate safeguard-plugin
+    shell: ./usr/share/elasticsearch/plugins/search-guard-5/tools/sgadmin.sh
+
